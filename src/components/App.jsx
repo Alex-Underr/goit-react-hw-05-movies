@@ -1,11 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
+
 import Cast from './Cast/Cast';
 import Revievs from './Reviews/Reviews';
 import AppBar from '../components/AppBar/AppBar';
-// import MovieDetails from './MovieDetails/MovieDetails';
-// import Movies from '../components/Movies/Movies';
-// import Home from '../components/Home/Home';
 import NotFound from 'pages/NotFound';
 
 const Home = lazy(() => import('components/Home/Home'));

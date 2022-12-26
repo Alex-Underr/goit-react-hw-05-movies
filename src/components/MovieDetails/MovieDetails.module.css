@@ -1,0 +1,28 @@
+.section {
+  margin: 10px;
+}
+.preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+}
+h3 {
+  text-align: center;
+  color: black;
+}
+
+.header {
+  margin: 15px;
+}
+.text {
+  font-weight: 700;
+}
+.back {
+  background-color: rgb(214, 246, 255);
+}
+.secTwo {
+  text-align: center;
+  margin-bottom: 25px;
+}

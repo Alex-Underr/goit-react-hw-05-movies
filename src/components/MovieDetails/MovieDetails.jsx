@@ -1,11 +1,10 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useLocation, Outlet, Link } from 'react-router-dom';
 import { fetchMovieDetails } from 'components/services/API';
-
+import s from './MovieDetails.module.css';
 export default function MovieDetails() {
   const { movieId } = useParams();
   const location = useLocation();
-  // const locationBack = useRef(location.state);
   const [film, setFilm] = useState({});
 
   useEffect(() => {
@@ -17,23 +16,28 @@ export default function MovieDetails() {
   }, [movieId]);
 
   return (
-    <div>
+    <div className={s.section}>
       {film?.id && (
         <>
-          <div>
-            <Link to={location?.state?.from ?? '/'}>BACK</Link>
+          <div className={s.header}>
+            <Link className={s.back} to={location?.state?.from ?? '/'}>
+              BACK
+            </Link>
           </div>
           <>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-              alt={film.title}
-              width="300"
-            />
-            <div>
+            <div className={s.secTwo}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                alt={film.title}
+                width="600"
+              />
               <h2>{film.title}</h2>
               <p>
-                User score: <span>{film.vote_average.toFixed(2)}</span>
+                User score:{' '}
+                <span className={s.text}>{film.vote_average.toFixed(2)}</span>
               </p>
+            </div>
+            <div>
               <b>Overview</b>
               <p>{film.overview}</p>
               <b>Genres</b>
@@ -46,12 +50,12 @@ export default function MovieDetails() {
             <ul>
               <li>
                 <Link to="cast" state={{ from: location?.state?.from }}>
-                  Cast
+                  <b>Cast</b>
                 </Link>
               </li>
               <li>
                 <Link to="reviews" state={{ from: location?.state?.from }}>
-                  Reviews
+                  <b>Reviews</b>
                 </Link>
               </li>
             </ul>
