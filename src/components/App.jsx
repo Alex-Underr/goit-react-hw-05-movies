@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import Cast from './Cast/Cast';
 import Revievs from './Reviews/Reviews';
 import AppBar from '../components/AppBar/AppBar';
