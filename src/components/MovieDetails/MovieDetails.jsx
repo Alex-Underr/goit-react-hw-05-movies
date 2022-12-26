@@ -1,28 +1,28 @@
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, useLocation, Outlet, Link } from 'react-router-dom';
 import { fetchMovieDetails } from 'components/services/API';
 
 export default function MovieDetails() {
-  const { id: movieId } = useParams();
+  const { movieId } = useParams();
   const location = useLocation();
-  const locationBack = useRef(location.state);
-  const [film, setFilm] = useState(null);
+  // const locationBack = useRef(location.state);
+  const [film, setFilm] = useState({});
+
   useEffect(() => {
-    movieId &&
-      fetchMovieDetails(movieId)
-        .then(({ data }) => {
-          setFilm(data);
-        })
-        .catch(console.log);
+    fetchMovieDetails(movieId)
+      .then(data => {
+        setFilm(data);
+      })
+      .catch(console.log);
   }, [movieId]);
 
   return (
     <div>
-      {film && (
+      {film?.id && (
         <>
-          {locationBack.current && (
-            <Link to={locationBack.current.location}>BACK</Link>
-          )}
+          <div>
+            <Link to={location?.state?.from ?? '/'}>BACK</Link>
+          </div>
           <>
             <img
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
@@ -45,10 +45,14 @@ export default function MovieDetails() {
             <p>Additional information</p>
             <ul>
               <li>
-                <Link to="cast">Cast</Link>
+                <Link to="cast" state={{ from: location?.state?.from }}>
+                  Cast
+                </Link>
               </li>
               <li>
-                <Link to="reviews">Reviews </Link>
+                <Link to="reviews" state={{ from: location?.state?.from }}>
+                  Reviews
+                </Link>
               </li>
             </ul>
           </div>

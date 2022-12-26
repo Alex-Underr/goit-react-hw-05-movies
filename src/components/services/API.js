@@ -11,31 +11,28 @@ export const fetchTrendingFilms = async () => {
 
 export const searchFilms = async query => {
   const result = await axios(`${searchMovie}`, {
-    params: { api_key: KEY },
-    query,
+    params: { api_key: KEY, query },
   });
   return result.data.results;
 };
 
 export const fetchMovieDetails = async id => {
   const result = await axios(`movie/${id}`, {
-    params: { api_key: KEY },
-    id,
+    params: { api_key: KEY, id },
   });
-  return result.data.results;
+  return result.data;
 };
-// console.log(fetchMovieDetails());
 
 export const fetchMovieCredits = async id => {
   const result = await axios(`movie/${id}/credits`, {
     params: { api_key: KEY },
   });
-  return result.data;
+  return result.data.cast;
 };
 
 export const fetchMovieReviews = async id => {
   const result = await axios(`movie/${id}/reviews`, {
     params: { api_key: KEY },
   });
-  return result;
+  return result.data.results;
 };

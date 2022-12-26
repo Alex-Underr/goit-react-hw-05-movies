@@ -2,47 +2,58 @@ import { searchFilms } from '../services/API';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import style from './Movies.module.css';
 
-export default function Movies({ onChange, searchFilms, value }) {
+export default function Movies() {
   const [events, setEvents] = useState([]);
+  const [value, setValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const searchQuery = searchParams.get('query');
+  const searchQuery = searchParams.get('name');
 
   useEffect(() => {
     if (!searchQuery) {
       return;
     }
     searchFilms(searchQuery).then(setEvents);
-  }, [searchFilms, searchQuery]);
+  }, [searchQuery]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const param = e.target.elements.param.value;
-    setSearchParams({ name: param });
+    // const value = e.target.elements.param.value;
+    setSearchParams(value ? { name: value } : {});
     e.target.reset();
   };
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={style.form}>
         <input
+          className={style.input}
           type="text"
-          name="param"
+          // name="value"
           placeholder="Search movies"
           required
           autoFocus
           value={value}
           onChange={e => {
-            onChange(e.target.value.toLowerCase());
+            setValue(e.target.value.toLowerCase());
           }}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className={style.Button}>
+          Search
+        </button>
       </form>
       {events && (
-        <ul>
-          {events.map(({ id, title }) => (
+        <ul className={style.preview}>
+          {events.map(({ id, title, poster_path }) => (
             <li key={id}>
-              <Link to={`movies/${id}`} state={{ location }}>
+              <Link to={`${id}`} state={{ from: location }}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                  alt={title}
+                  width="300"
+                />
                 {title}
               </Link>
             </li>
