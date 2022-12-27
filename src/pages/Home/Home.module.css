@@ -26,10 +26,10 @@ h3 {
   text-align: center;
   color: black;
 }
-img {
+.image {
   transition: transform 0.4s;
 }
-img:hover {
+.image:hover {
   display: block;
   transform: scale(1.05);
   transition: transform 0.2s;

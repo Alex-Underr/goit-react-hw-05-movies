@@ -1,4 +1,4 @@
-import { fetchTrendingFilms } from '../services/API';
+import { fetchTrendingFilms } from 'components/services/API';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Home.module.css';
@@ -18,6 +18,7 @@ export default function TrendMovies() {
               <li key={id}>
                 <Link to={`movies/${id}`}>
                   <img
+                    className={style.image}
                     src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
                     alt={events.title}
                     width="300"
