@@ -9,7 +9,17 @@ export default function AppBar() {
       <Container>
         <Navigation />
       </Container>
-      <Suspense fallback={<CircleLoader color="#36d7b7" />}>
+      <Suspense
+        fallback={
+          <CircleLoader
+            color="#4879f3"
+            cssOverride={{
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+          />
+        }
+      >
         <Outlet />
       </Suspense>
     </>
